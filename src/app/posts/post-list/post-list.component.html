@@ -1,0 +1,20 @@
+<mat-accordion multi="true" *ngIf="posts.length > 0">
+    <mat-expansion-panel *ngFor = "let post of posts"
+         (opened)="panelOpenState = true"
+         (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{post.title}}
+            </mat-panel-title>
+            <mat-panel-description>
+                Our List of posts &nbsp;<span> {{panelOpenState ? 'Aberto' : 'Fechado'}}</span>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>{{post.content}}</p>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<p *ngIf="posts.length >= 0" class="mat-caption">No posts yed!</p>
+
+
