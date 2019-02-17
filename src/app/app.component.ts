@@ -11,9 +11,9 @@ export class AppComponent {
 
   storedPosts: Post[] = [];
 
-  /*as the app component is the parent of the post create component, 
-  we can only listen to the postCreateComponent#postCreated event inside the app component class 
-  as a result, we add a the following method 
+  /*as the app component is the parent of the post create component,
+  we can only listen to the postCreateComponent#postCreated event inside the app component class
+  as a result, we add a the following method
   */
 
   onPostAdded(post) {

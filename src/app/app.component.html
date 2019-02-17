@@ -1,8 +1,8 @@
 <main>
     <app-header></app-header>
-    <!--Here we listen to the PostCreated event and we call the onPostAdded passing the event data. 
-        always that the event is emited-->    
-    <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
-    <app-post-list [posts] = "storedPosts" ></app-post-list>
+    <!--Here we listen to the PostCreated event and we call the onPostAdded passing the event data.
+        always that the event is emited-->
+    <app-post-create></app-post-create>
+    <app-post-list ></app-post-list>
 </main>
 
