@@ -14,7 +14,7 @@ export class PostCreateComponent implements OnInit {
     private mode= 'create';
     private postId: string;
     editablePost: Post;
-
+    isLoading = false; 
     // output means we can listen to this event in the parent component
     // @Output() postCreated = new EventEmitter<Post>();
 
@@ -25,7 +25,10 @@ export class PostCreateComponent implements OnInit {
         if(paramMap.has('id')) {          
           this.mode = 'edit';
           this.postId = paramMap.get('id');
+          this.isLoading = true;
+
           this.postService.getPost(this.postId).subscribe((postData) => {
+            this.isLoading = false;
             this.editablePost = {id: postData._id, title: postData.title, content: postData.content}
           });
           
@@ -45,7 +48,7 @@ export class PostCreateComponent implements OnInit {
     };
     */
     // this.postCreated.emit(post);
-
+    this.isLoading = true;
     if(this.mode === 'create'){
       this.postService.addPost(form.value.title, form.value.content);
     }

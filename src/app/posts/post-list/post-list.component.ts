@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-post-list',
-    templateUrl: './post-list.component.html'
+    templateUrl: './post-list.component.html', 
+    styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
-
+  isLoading = false;
   panelOpenState = false;
 
   /** As the posts are inserted by another component we need to say to angular
@@ -21,9 +22,12 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor(public postService: PostService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.postService.getPosts();
     this.postSubs =  this.postService.getPostUpdatedEventListener()
-    .subscribe((posts: Post[]) => { this.posts = posts; });
+    .subscribe((posts: Post[]) => { 
+      this.isLoading = false;
+      this.posts = posts; });
   }
 
   ngOnDestroy(): void {

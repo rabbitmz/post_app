@@ -1,4 +1,5 @@
-<mat-accordion multi="true" *ngIf="posts.length > 0">
+<mat-spinner *ngIf= "isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
     <mat-expansion-panel *ngFor = "let post of posts"
          (opened)="panelOpenState = true"
          (closed)="panelOpenState = false"
@@ -19,6 +20,6 @@
     </mat-expansion-panel>
 </mat-accordion>
 
-<p *ngIf="posts.length >= 0" class="mat-caption">No posts yed!</p>
+<p *ngIf="posts.length <= 0 && !isLoading" class="mat-caption">No posts yed!</p>
 
 
