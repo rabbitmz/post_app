@@ -3,7 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
@@ -34,7 +34,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule,
     MatProgressBarModule,
     HttpClientModule,
