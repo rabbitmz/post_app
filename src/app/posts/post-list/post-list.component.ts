@@ -16,6 +16,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   totalPosts = 10;
   postPerPage = 2;
   pageSizeOptions = [1,2,5,10];
+  currentPageNumber =1;
 
   /** As the posts are inserted by another component we need to say to angular
      * that this list is comming from outside this component.
@@ -27,7 +28,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.postService.getPosts();
+    this.postService.getPosts(this.postPerPage, this.currentPageNumber);
     this.postSubs =  this.postService.getPostUpdatedEventListener()
     .subscribe((posts: Post[]) => { 
       this.isLoading = false;
@@ -43,8 +44,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(pageData: PageEvent)
-{
-  console.log(pageData);
-}
+  { 
+    this.currentPageNumber = pageData.pageIndex + 1;
+    this.postPerPage = pageData.pageSize;
+    this.postService.getPosts(this.postPerPage, this.currentPageNumber);
+  }
 }
 

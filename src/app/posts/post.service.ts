@@ -17,8 +17,11 @@ export class PostService {
     return this.postUpdated.asObservable();
   }
 
-  getPosts() {
-    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
+  getPosts(postPerPage: number, pageNumber: number) {
+
+    const queryParams = `?pagesize=${postPerPage}&page=${pageNumber}`;
+
+    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts'+ queryParams)
     .pipe(map((postData) => {
         return postData.posts.map(pop => {
           return {
