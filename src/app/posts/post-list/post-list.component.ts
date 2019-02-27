@@ -2,6 +2,7 @@ import { PostService } from './../post.service';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../post.model';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-post-list',
@@ -12,6 +13,9 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   panelOpenState = false;
+  totalPosts = 10;
+  postPerPage = 2;
+  pageSizeOptions = [1,2,5,10];
 
   /** As the posts are inserted by another component we need to say to angular
      * that this list is comming from outside this component.
@@ -37,4 +41,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   onDelete(id: string) {
     this.postService.deletePost(id);
   }
+
+  onPageChanged(pageData: PageEvent)
+{
+  console.log(pageData);
 }
+}
+

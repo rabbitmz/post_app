@@ -19,7 +19,7 @@
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>
-
+<mat-paginator [length]="totalPosts" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChanged($event)"></mat-paginator>
 <p *ngIf="posts.length <= 0 && !isLoading" class="mat-caption">No posts yed!</p>
 
 

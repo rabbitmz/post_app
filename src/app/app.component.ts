@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Post } from './posts/post.model';
-
+import 'hammerjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
