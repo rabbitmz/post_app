@@ -30,10 +30,10 @@ const storage = multer.diskStorage({
 
 router.post("", multer({storage: storage}).single("image"),(req,res, next) => {
   const url = req.protocol+ '://'+ req.get("host");
-    
+
   const post = new Post({
     title: req.body.title,
-    content:req.body.content, 
+    content:req.body.content,
     imagePath: url+"/images/"+req.file.filename
   });
   console.log(post);
@@ -42,8 +42,8 @@ router.post("", multer({storage: storage}).single("image"),(req,res, next) => {
       message: 'Post added successfuly',
       post: {
         id:  result._id,
-        title: result.title, 
-        content: result.content, 
+        title: result.title,
+        content: result.content,
         imagePath: result.imagePath
       }
     });
@@ -56,12 +56,24 @@ router.get("",(req, res, next) => {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     const postQuery = Post.find();
+    let documents;
 
     if(pageSize && currentPage) {
       postQuery
         .skip(pageSize * (currentPage - 1))
         .limit(pageSize);
     }
+
+    postQuery.then((docs)=> {
+      documents = docs;
+      return Post.countDocuments();
+    }).then((count)=>{
+      res.status(200).json({
+        message: "posts fetched sucessufly",
+        posts: documents,
+        maxPosts: count
+      });
+    });
 
     postQuery.then((documents)=>{
       res.status(200).json({
@@ -70,18 +82,18 @@ router.get("",(req, res, next) => {
       });
     });
   });
-  
+
   router.delete("/:id", (req, res, next) => {
-    console.log(req.params.id);
-    Post.deleteOne({_id: req.params.id}).then(()=>{
+
+    Post.deleteOne({_id: req.params.id}).then(()=> {
       res.status(200).json({message: "Post Deleted"});
     });
-  
+
   });
-  
-  
+
+
   router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) => {
-    let imagePath = req.body.imagePath;    
+    let imagePath = req.body.imagePath;
 
     if(req.file) {
       const url = req.protocol+ '://'+ req.get("host");
@@ -91,10 +103,10 @@ router.get("",(req, res, next) => {
     const post = new Post({
       _id: req.body.id,
       title: req.body.title,
-      content: req.body.content, 
+      content: req.body.content,
       imagePath: imagePath
     });
-  
+
     Post.updateOne({_id: req.params.id}, post).then(result => {
       console.log(result);
       res.status(200).json({
@@ -102,8 +114,8 @@ router.get("",(req, res, next) => {
       });
     });
   });
-  
-  
+
+
   router.get("/:id", (req, res, next) => {
     Post.findById(req.params.id).then(post => {
       if(post)  {
